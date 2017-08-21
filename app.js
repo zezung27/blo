@@ -1,4 +1,5 @@
 var express = require("express");
+var mysql = require('mysql');
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
@@ -7,6 +8,13 @@ server.listen(process.env.PORT || 3000);
 console.log("connected to server!!!!!!");
 
 var arr_user = [];
+var con = mysql.createConnection({
+  host: "mysql6001.hostbuddy.com",
+  user: "a276a0_dungle",
+  password: "Ledung@2711",
+  database: "db_a276a0_dungle"
+});
+
 io.sockets.on('connection', function (socket) {
 	
   console.log("Co nguoi connect ne");
@@ -22,10 +30,7 @@ io.sockets.on('connection', function (socket) {
 		  socket.un = data;
 		  console.log("added "+data);
 		  check = true;
-		  
-		  
 	  }
-	  
 	  //gui du lieu ve client khi dk
 	  socket.emit('server_to_client_result_register', { noidung: check });
   });
